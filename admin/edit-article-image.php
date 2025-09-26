@@ -64,7 +64,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
 
 
+$destination = "../uploads/" . $_FILES['file']['name'];
 
+if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
+    echo "File uploaded successfully.";
+} else {
+
+    throw new Exception('Unable to move uploaded file');
+}
 
 
 } catch (Exception $e) {
