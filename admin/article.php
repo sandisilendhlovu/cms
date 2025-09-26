@@ -26,7 +26,8 @@ $article = Article::getByID($conn, $_GET['id']);
                     </article>
 
   <a href="editarticle.php?id=<?= $article->id; ?>">Edit</a>  
-  <a href="deletearticle.php?id=<?= $article->id; ?>">Delete</a>  
+  <a href="deletearticle.php?id=<?= $article->id; ?>">Delete</a>
+  <a href="edit-article-image.php?id=<?= $article->id; ?>">Edit image</a>
     
   <?php else : ?>
   <p>  Article not found </p>
