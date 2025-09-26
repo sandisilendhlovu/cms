@@ -31,12 +31,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   try {
 
+    if (empty($_FILES)) {
+        throw new Exception('Invalid upload');
+    }
+
     switch($_FILES['file']['error']) {
     case UPLOAD_ERR_OK:
     break;
+
     case UPLOAD_ERR_NO_FILE: 
     throw new Exception('No file uploaded');
     break;
+
+    case UPLOAD_ERR_INI_SIZE: 
+    throw new Exception('File is too large'); 
+
     default: throw new Exception('An error occured');
 
   }
