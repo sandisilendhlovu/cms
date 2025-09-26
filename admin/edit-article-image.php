@@ -49,6 +49,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     default: throw new Exception('An error occured');
 
   }
+     if ($_FILES['file']['size'] > 1000000){
+        throw new Exception('File is too large');
+     }
+
+     $mime_types = ['image/gif' , 'image/png' , 'image/jpeg'];
+
+     $finfo = finfo_open(FILEINFO_MIME_TYPE);
+     $mime_type = finfo_file($finfo, $_FILES['file']['tmp_name']);
+
+     if ( ! in_array($mime_type, $mime_types)) {
+
+        throw new Exception('invalid file type');
+      }
+
+
+
+
+
 } catch (Exception $e) {
     echo $e->getMessage();
 }
