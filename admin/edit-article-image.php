@@ -74,6 +74,8 @@ $base = $pathinfo['filename'];
 //Replace any characters that aren't letters, numbers, underscores, or hyphens with an underscore 
 $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
 
+$base = mb_substr($base, 0, 200);
+
 $filename = $base . '.' . $pathinfo['extension'];
 
 $uploadDir = __DIR__ . '/../uploads/'; 
@@ -89,9 +91,11 @@ while (file_exists($destination)) {
 }
 
 if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
-    echo "File uploaded successfully.";
-}
- else {
+    if ($article->setImageFile($conn, $filename)) {
+        Url::redirect("/admin/article.php?id={$article->id}");
+    }
+    
+} else {
 
     throw new Exception('Unable to move uploaded file');
 }
