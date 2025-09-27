@@ -70,12 +70,23 @@ $destination = "../uploads/" . $_FILES['file']['name'];
 $pathinfo = pathinfo($_FILES["file"]["name"]);
 
 $base = $pathinfo['filename'];
+
+//Replace any characters that aren't letters, numbers, underscores, or hyphens with an underscore 
 $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
 
 $filename = $base . '.' . $pathinfo['extension'];
 
-$uploadDir = __DIR__ . '/../uploads/'; // one level up from /admin/
+$uploadDir = __DIR__ . '/../uploads/'; 
 $destination = $uploadDir . $filename;
+
+$i = 1;
+
+while (file_exists($destination)) {
+    $filename = $base . "-$i." . $pathinfo['extension'];
+    $destination = "../uploads/$filename";
+
+    $i++;
+}
 
 if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
     echo "File uploaded successfully.";
