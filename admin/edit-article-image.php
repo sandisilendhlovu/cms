@@ -27,8 +27,6 @@ if ( ! $article) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-   var_dump($_FILES);
-
   try {
 
     if (empty($_FILES)) {
@@ -49,10 +47,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     default: throw new Exception('An error occured');
 
   }
+     //File size restriction  
      if ($_FILES['file']['size'] > 1000000){
         throw new Exception('File is too large');
      }
-
+     
+     //File type restriction
      $mime_types = ['image/gif' , 'image/png' , 'image/jpeg'];
 
      $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -63,9 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         throw new Exception('invalid file type');
       }
 
-
-$destination = "../uploads/" . $_FILES['file']['name'];
-
 // Move uploaded file 
 $pathinfo = pathinfo($_FILES["file"]["name"]);
 
@@ -74,6 +71,7 @@ $base = $pathinfo['filename'];
 //Replace any characters that aren't letters, numbers, underscores, or hyphens with an underscore 
 $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
 
+//Resctric the filename to 200 characters
 $base = mb_substr($base, 0, 200);
 
 $filename = $base . '.' . $pathinfo['extension'];
@@ -91,20 +89,25 @@ while (file_exists($destination)) {
 }
 
 if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
+   
+     $previous_image = $article->image_file;
+
     if ($article->setImageFile($conn, $filename)) {
-        Url::redirect("/admin/article.php?id={$article->id}");
+        if ($previous_image) {
+            unlink("../uploads/$previous_image");
+        }
     }
+        Url::redirect("/admin/edit-article-image.php?id={$article->id}");
     
-} else {
+    } else {
 
     throw new Exception('Unable to move uploaded file');
 }
 
 
 } catch (Exception $e) {
-    echo $e->getMessage();
+    $error = $e->getMessage();
 }
-
 }
 
 ?>
@@ -115,12 +118,17 @@ if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
 <img src="/uploads/<?= $article->image_file; ?>">
 <?php endif; ?>    
 
-<form method="post" enctype="multipart/form-data">
+<?php if (isset($error)) : ?>
+   <p><?= $error ?></p>
+   <?php endif; ?>
+
+    <form method="post" enctype="multipart/form-data">
     <div>
     <label for="file"> Image files </label>
+    <a href="delete-article-image.php?id=<?= $article->id; ?>">Delete</a>"
     <input type="file" name="file" id="file">
     </div>
     <button>Upload</button>
-</form>
+    </form>
 
 <?php require '../includes/footer.php'; ?>

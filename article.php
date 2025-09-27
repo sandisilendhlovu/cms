@@ -26,6 +26,11 @@ $article = Article::getByID($conn, $_GET['id']);
 
                     <p><?= htmlspecialchars($article->content); ?></p>
                     </article>
+
+<a href="/admin/editarticle.php?id=<?= $article->id; ?>">Edit</a>  
+<a href="/admin/deletearticle.php?id=<?= $article->id; ?>">Delete</a>
+<a href="/admin/edit-article-image.php?id=<?= $article->id; ?>">Edit image</a>
+
                     
   <?php else : ?>
   <p>  Article not found </p>

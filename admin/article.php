@@ -26,7 +26,7 @@ $article = Article::getByID($conn, $_GET['id']);
                     <?php if ($article->image_file) : ?>
                     <img src="/uploads/<?= $article->image_file; ?>">
                     <?php endif; ?>    
-                    
+
                     <p><?=  htmlspecialchars($article->content); ?></p>
                     </article>
 
