@@ -74,8 +74,8 @@ $base = preg_replace('/[^a-zA-Z0-9_-]/', '_', $base);
 
 $filename = $base . '.' . $pathinfo['extension'];
 
-// ✅ Make sure $destination uses $filename
-$destination = "uploads/" . $filename;
+$uploadDir = __DIR__ . '/../uploads/'; // one level up from /admin/
+$destination = $uploadDir . $filename;
 
 if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
     echo "File uploaded successfully.";
