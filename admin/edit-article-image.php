@@ -111,6 +111,10 @@ if (move_uploaded_file($_FILES['file']['tmp_name'], $destination)) {
 
 <h2> Edit Article Image </h2>
 
+<?php if ($article->image_file) : ?>
+<img src="/uploads/<?= $article->image_file; ?>">
+<?php endif; ?>    
+
 <form method="post" enctype="multipart/form-data">
     <div>
     <label for="file"> Image files </label>
