@@ -218,14 +218,38 @@ public function update($conn)
    }
 
 /**
+ * Set the article categories
+ * 
+ * @param object $conn Connection to the database
+ * @param array $ids Category IDs
+ * 
+ * @retun void
+ * 
+ */
+
+public function setCategories($conn, $ids)
+
+{
+    if ($ids) {
+        $sql = "INSERT IGNORE INTO article_category (article_id, category_id)
+                 VALUES ({$this ->id}, :category_id)";
+
+                 $stmt = $conn->prepare($sql);
+
+                  foreach($ids as $id) {
+                  $stmt->bindValue(':category_id' , $id, PDO::PARAM_INT);
+                  $stmt->execute();
+         }
+    }
+}
+
+/**
  * 
  * Validate the properties, putting any validation error messages in the $errors property
  * 
  * @Return boolean True if the current properties are valid, false otherwise
  * 
  */
-
-
 
  protected function validate()
 
@@ -351,5 +375,4 @@ $stmt->bindValue(':image_file', $filename, $filename == null ? PDO::PARAM_NULL :
     $stmt->execute();
 
 }
-
 }
