@@ -4,11 +4,14 @@
     
     Auth::requireLogin();
 
+    $conn = require '../includes/db.php';
+    
     $article = new Article();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $categories   = Category::getAll($conn) ?? [];
+    $category_ids = [];
 
-    $conn = require '../includes/db.php';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     $article->title = $_POST['title'];

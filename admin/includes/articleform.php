@@ -27,6 +27,26 @@ ini_set('display_errors', 1);
         <input type="text" name="published_at" id="published_at"
                value="<?= htmlspecialchars($article->published_at ?? '') ?>">
     </div>
+<fieldset>
+    <legend>Categories</legend>
+
+    <?php foreach ($categories as $category) : ?>
+        <div>
+            <input 
+                type="checkbox" 
+                name="category[]" 
+                value="<?= $category['id'] ?>" 
+                id="category<?= $category['id'] ?>"
+                <?= in_array($category['id'], $category_ids) ? 'checked' : '' ?>
+            >
+            <label for="category<?= $category['id'] ?>">
+                <?= htmlspecialchars($category['name']) ?>
+            </label>
+        </div>
+    <?php endforeach; ?> 
+</fieldset>
+
+
 
     <button>Save Article</button> 
 

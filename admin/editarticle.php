@@ -25,7 +25,8 @@ if ( ! $article) {
     die("id not supplied, article not found");
 }
 
-var_dump($article->getCategories($conn));
+$category_ids = array_column($article->getCategories($conn), 'id');
+$categories   = Category::getAll($conn); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -39,10 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-?>
+echo "<h2> Edit Article </h2>";
 
-<h2> Edit Article </h2>
+require 'includes/articleform.php';
 
-<?php require 'includes/articleform.php'; ?>
-
-<?php require '../includes/footer.php'; ?>
+require '../includes/footer.php';
