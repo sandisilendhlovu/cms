@@ -25,6 +25,8 @@ if ( ! $article) {
     die("id not supplied, article not found");
 }
 
+var_dump($article->getCategories($conn));
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $article->title = $_POST['title'];
@@ -32,13 +34,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->published_at = $_POST['published_at'];
 
     if ($article->update($conn)) {
-
-    if ($article->update($conn)) {
         Url::redirect("/admin/article.php?id={$article->id}");
     }
 
-} 
-    
 }
 
 ?>

@@ -19,6 +19,9 @@ $article = Article::getByID($conn, $_GET['id']);
 }
 
 ?>
+
+<?php var_dump($article); ?>
+
  <?php if ($article): ?>
                     <article>
                     <h2><?=  htmlspecialchars($article->title); ?></h2>
@@ -30,9 +33,10 @@ $article = Article::getByID($conn, $_GET['id']);
                     <p><?=  htmlspecialchars($article->content); ?></p>
                     </article>
 
-  <a href="editarticle.php?id=<?= $article->id; ?>">Edit</a>  
-  <a href="deletearticle.php?id=<?= $article->id; ?>">Delete</a>
-  <a href="edit-article-image.php?id=<?= $article->id; ?>">Edit image</a>
+
+<a href="/admin/editarticle.php?id=<?= $article->id; ?>">Edit</a>  
+<a href="/admin/deletearticle.php?id=<?= $article->id; ?>">Delete</a>
+<a href="/admin/edit-article-image.php?id=<?= $article->id; ?>">Edit image</a>
     
   <?php else : ?>
   <p>  Article not found </p>

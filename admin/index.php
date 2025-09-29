@@ -31,7 +31,7 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
     <?php foreach ($articles as $article): ?>
             <tr> 
             <td>
-            <a href="../article.php?id=<?= $article['id']; ?>"><?=  htmlspecialchars($article ['title']); ?></a>
+            <a href="article.php?id=<?= $article['id']; ?>"><?=  htmlspecialchars($article ['title']); ?></a>
     </td>
     </tr>
                        <?php endforeach; ?>
