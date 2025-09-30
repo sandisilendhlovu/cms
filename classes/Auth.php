@@ -25,7 +25,7 @@ class Auth
     public static function requireLogin()
     {
         if (! static::isLoggedin()) {
-            die("unauthorised");
+            die("Please log in to view and manage articles");
         }
     }
     /**

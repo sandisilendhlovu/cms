@@ -20,7 +20,7 @@ $article = Article::getByID($conn, $_GET['id']);
 
 ?>
 
-<?php var_dump($article); ?>
+<?php // var_dump($article); ?>
 
  <?php if ($article): ?>
                     <article>

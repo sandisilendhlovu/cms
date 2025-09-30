@@ -8,7 +8,7 @@ Auth::requireLogin();
 
 $conn = require '../includes/db.php';
 
-$paginator = new Paginator($_GET['page'] ??  1, 6, Article::getTotal($conn));
+$paginator = new Paginator($_GET['page'] ??  1, 3, Article::getTotal($conn));
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 

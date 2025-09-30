@@ -1,16 +1,16 @@
 <!DOCTYPE hmtl>
 <html>
 <head>
-<title> My Blog </title>
+<title> Bits & Balance - 👩🏽‍💻♥️</title>
 <meta charset="utf-8">
 </head> 
 <body>
 <header>
-    <h1> My Blog </h1> 
+<h1 style="margin-bottom: 0.3rem;">Bits & Balance - 👩🏽‍💻♥️</h1>
+<p style="margin-top: 0;"> Code Live Repeat </p>
 </header> 
 <nav>
 <ul>
-
 <li><a href="/">Home</a></li>
 <?php if (Auth::isLoggedIn()) :?>
 
